@@ -56,6 +56,9 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-hateoas'
 	compile'org.springframework.boot:spring-boot-starter-web'
 	compile'org.liquibase:liquibase-core'
+	compile "org.hibernate:hibernate-core:5.2.8.Final"
+	compile "org.hibernate:hibernate-validator"
+	compile "org.hibernate:hibernate-entitymanager:5.2.8.Final"
 	runtime'org.postgresql:postgresql'
 	providedRuntime'org.springframework.boot:spring-boot-starter-tomcat'
 	testCompile'org.springframework.boot:spring-boot-starter-test'
