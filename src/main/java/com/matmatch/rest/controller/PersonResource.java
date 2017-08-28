@@ -122,4 +122,36 @@ public class PersonResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    /**
+     * SEARCH  /_search/people?query=:query : search for the person corresponding
+     * to the query.
+     *
+     * @param query the query of the person search
+     * @return the result of the search
+     */
+    @GetMapping("_search/people")
+    public List<Person> searchPeople(@RequestParam String query) {
+        log.debug("REST request to search People for query {}", query);
+        return StreamSupport
+            .stream(personSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .collect(Collectors.toList());
+    }
+
+
+    /**
+     * SEARCH  /people/search?query=:query&gender=:gender : search for the person corresponding
+     * to the query.
+     *
+     * @param query the query of the person search
+     * @param gender gender of the person
+     * @return the result of the search
+     */
+    @GetMapping("/people/search")
+    public List<Person> searchPeopleByNameAndGender(@RequestParam String query, @RequestParam Gender gender) {
+        log.debug("REST request to search People for query {}", query);
+        return StreamSupport
+                .stream(personSearchRepository.findByFirstNameLikeAndGender(query, gender).spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
 }
