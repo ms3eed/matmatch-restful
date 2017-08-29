@@ -1,0 +1,19 @@
+version: '2'
+services:
+    restful-app:
+        image: matmatch/restful
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://restful-postgresql:5432/matmatch
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=restful-elasticsearch:9300
+            - SPRING_DATASOURCE_USERNAME=matmatch
+            - SPRING_DATASOURCE_PASSWORD=matmatch-password
+        ports:
+            - 8080:8080
+    restful-postgresql:
+        extends:
+            file: postgres.yml
+            service: restful-postgresql
+    restful-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: restful-elasticsearch

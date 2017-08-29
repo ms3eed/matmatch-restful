@@ -63,3 +63,22 @@ dependencies {
 	providedRuntime'org.springframework.boot:spring-boot-starter-tomcat'
 	testCompile'org.springframework.boot:spring-boot-starter-test'
 }
+
+
+task publish(type: Exec) {
+	doFirst {
+		copy {
+			from "docker/"
+			into "build/docker/"
+			include "*"
+		}
+		copy {
+			from "build/libs"
+			into "build/docker/"
+			include "*.war*"
+		}
+	}
+    commandLine 'docker', 'image', 'build', '-f', 'build/docker/Dockerfile', '-t', 'matmatch/restful', '.'
+}
+
+tasks.publish.dependsOn(bootRepackage)
