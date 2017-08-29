@@ -1,0 +1,11 @@
+version: '2'
+services:
+    restful-postgresql:
+        image: postgres:9.6.2
+        # volumes:
+        #     - ~/volumes/jhipster/restful/postgresql/:/var/lib/postgresql/data/
+        environment:
+            - POSTGRES_USER=matmatch
+            - POSTGRES_PASSWORD=matmatch-password
+        ports:
+            - 5432:5432
